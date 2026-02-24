@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${accionPlanAmbiental.codigoAccion == null ? 'Nueva Acción Ambiental' : 'Editar Acción Ambiental'}"></title>
+<style>
+body { font-family: Arial; background:#f4f6f8; padding:20px; }
+form { width:60%; margin:auto; background:white; padding:20px; border-radius:5px; }
+label { font-weight:bold; display:block; margin-top:10px; }
+input, textarea, select { width:100%; padding:8px; margin-bottom:10px; }
+button { background:#28a745; color:white; padding:8px 15px; border:none; cursor:pointer; }
+a { display:block; text-align:center; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center"
+    th:text="${accionPlanAmbiental.codigoAccion == null ? 'Registrar Acción Ambiental' : 'Editar Acción Ambiental'}"></h2>
+
+<form th:action="@{/accion-plan-ambiental/guardar}" th:object="${accionPlanAmbiental}" method="post">
+
+    <input type="hidden" th:field="*{codigoAccion}"/>
+
+    <!-- SELECT PARA ACCIÓN PADRE -->
+    <label>Acción</label>
+    <select th:field="*{codigoAccion}" required>
+        <option value="">-- Seleccione una acción --</option>
+        <option th:each="a : ${listaAcciones}" 
+                th:value="${a.codigoAccion}" 
+                th:text="${a.accionAccion}"
+                th:selected="${accionPlanAmbiental.codigoAccion} == ${a.codigoAccion}">
+        </option>
+    </select>
+
+    <label>Aspecto Ambiental</label>
+    <input type="text" th:field="*{aspectoAmbientalAccion}" required>
+
+    <label>Impacto Ambiental</label>
+    <input type="text" th:field="*{impactoAmbientalAccion}" required>
+
+    <label>Medidas Propuestas</label>
+    <textarea th:field="*{medidasPropuestasAccion}"></textarea>
+
+    <label>Indicador</label>
+    <input type="text" th:field="*{indicadorPlaceholderAccion}">
+
+    <label>Valor</label>
+    <input type="text" th:field="*{valorAccion}">
+
+    <button type="submit">
+        <span th:text="${accionPlanAmbiental.codigoAccion == null ? 'Guardar' : 'Actualizar'}"></span>
+    </button>
+
+    <a th:href="@{/accion-plan-ambiental}">Cancelar</a>
+</form>
+
+</body>
+</html>

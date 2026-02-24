@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${accion.codigoAccion == null ? 'Nueva Acción' : 'Editar Acción'}"></title>
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8f9fa;
+        padding: 30px 20px;
+    }
+
+    .form-container {
+        max-width: 650px;
+        margin: 0 auto;
+        background: white;
+        padding: 30px 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #0d6efd;
+    }
+
+    label {
+        font-weight: 600;
+        margin-top: 10px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: 1px solid #ced4da;
+        font-size: 14px;
+    }
+
+    textarea {
+        resize: vertical;
+    }
+
+    .btn-group-form {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 25px;
+    }
+
+    .btn-form {
+        min-width: 120px;
+    }
+
+    a.btn-cancel {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 6px;
+        color: white;
+        background-color: #6c757d;
+        display: inline-block;
+        text-align: center;
+    }
+</style>
+</head>
+
+<body>
+<div class="form-container">
+    <h2 th:text="${accion.codigoAccion == null ? 'Registrar Acción' : 'Editar Acción'}"></h2>
+
+    <form th:action="@{/acciones/guardar}" th:object="${accion}" method="post">
+        <input type="hidden" th:field="*{codigoAccion}"/>
+
+        <label>Acción</label>
+        <input type="text" th:field="*{accionAccion}" placeholder="Nombre de la acción" required>
+
+        <label>Tabla</label>
+        <input type="text" th:field="*{tablaAccion}" placeholder="Nombre de la tabla asociada">
+
+        <label>Módulo</label>
+        <input type="text" th:field="*{moduloAccion}" placeholder="Nombre del módulo">
+
+        <label>Detalle Anterior</label>
+        <textarea th:field="*{detalleAnteriorAccion}" rows="2" placeholder="Detalle anterior de la acción"></textarea>
+
+        <label>Detalle Actual</label>
+        <textarea th:field="*{detalleActualAccion}" rows="2" placeholder="Detalle actual de la acción"></textarea>
+
+        <label>Email Usuario</label>
+        <input type="email" th:field="*{emailUsuAccion}" placeholder="Correo electrónico">
+
+        <label>Usuario</label>
+        <input type="text" th:field="*{usuarioUsuAccion}" placeholder="Nombre del usuario">
+
+        <div class="btn-group-form">
+            <button type="submit" class="btn btn-success btn-form" 
+                    th:text="${accion.codigoAccion == null ? 'Guardar' : 'Actualizar'}"></button>
+            <a th:href="@{/acciones}" class="btn-cancel btn-form">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
